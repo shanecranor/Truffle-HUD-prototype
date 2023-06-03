@@ -10,10 +10,12 @@
 
 .title-bar{
 	background: #171717;
-	/* border-radius: 4px; */
 	overflow: hidden;
 	font-family: 'Inter', sans-serif;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 15px;
+}
+iframe{
+	display: block;
 }
