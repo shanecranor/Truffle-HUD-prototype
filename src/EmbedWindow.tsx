@@ -1,0 +1,46 @@
+//react function component boilerplate
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import Draggable from "./Draggable";
+import { EmbedInfo, Vector } from "./types";
+
+//TODO: background windows should be differentiated somehow
+export default function EmbedWindow(
+	{
+		id,
+		iframeSrc, 
+		title, 
+		tooltipDescription, 
+		dimensions, 
+		isResizeable
+	}: EmbedInfo) {
+	const [isDragging, setIsDragging] = useState<boolean>(false);
+	// const [isResizing, setIsResizing] = useState<boolean>(false);
+	return <Draggable defaultPosition={{x:0,y:0}}>
+		 <div 
+		 	className="title-bar"
+      onMouseDown={()=> {setIsDragging(true);}}
+      onMouseUp={()=>setIsDragging(false)}
+      style={{
+				background:"black", 
+				color:"white", 
+				width: `${dimensions.x}px`, 
+				padding: "10px", 
+				boxSizing:"border-box"}}
+      >
+				{title}
+			</div>
+			<iframe 
+			src={iframeSrc} 
+      style={{
+				border:"none", 
+				boxSizing:"border-box", 
+				width:"100%", 
+				height:"400px", 
+				pointerEvents: isDragging ? "none" : "inherit"
+			}}
+      ></iframe>
+	</Draggable>
+				
+
+}

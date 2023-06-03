@@ -1,22 +1,38 @@
 import './App.css'
 import { useState } from 'react'
 import Draggable from './Draggable'
-function App() {
-  const [isDragging, setIsDragging] = useState<boolean>(false)
+import EmbedWindow from './EmbedWindow'
+import { EmbedInfo } from './types'
+function App({inputData}: {inputData: EmbedInfo[]}) {
+  const [embedStateList, setEmbedStateList] = useState<EmbedInfo[]>(inputData)
+  const [displayOrder, setDisplayOrder] = useState<string[]>(inputData.map(info => info.id));
+  
   return (
     <>
-    <Draggable defaultPosition={{x:0,y:0}}>
-      <div 
+    {embedStateList.map((embedState, index) => (
+      <div className='addon-window-container'
+      onMouseDown={
+        //move to top of list when clicked 
+        () => setDisplayOrder((oldOrder)=>[oldOrder[index], ...oldOrder.filter((_,i)=>i!==index)] )
+      }
+      style={{
+        zIndex: displayOrder.indexOf(embedState.id)+100,
+      }}   
+      >
+        <EmbedWindow {...embedState}/>
+       </div>
+    ))}
+    {/* <Draggable defaultPosition={{x:0,y:0}}>
+    <div 
       onMouseDown={()=>setIsDragging(true)}
       onMouseUp={()=>setIsDragging(false)}
-      style={{background:"black", color:"white", width: "900px", padding: "10px", boxSizing:"border-box"}}
+      style={{background:"black", color:"white", width: "550px", padding: "10px", boxSizing:"border-box"}}
       >
-      🐷 Pigtionary Addon 
+      Some other addon
       </div>
-      <iframe src="https://pigtionary-embed.netlify.app/streamer.html" 
-      style={{border:"none", boxSizing:"border-box", width:"100%", height:"400px", pointerEvents: isDragging ? "none" : "inherit"}}
-      ></iframe>
-    </Draggable>
+    <iframe border={0} frameborder={0} height={250} width={550}
+ src="https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Fjack%2Fstatus%2F20"></iframe>
+    </Draggable> */}
     </>
     
   )
