@@ -15,7 +15,8 @@ export default function EmbedWindow(
 			dimensions,
 			isResizeable 
 		},
-	}: { embedInfo: EmbedInfo }) {
+		isFocused,
+	}: { embedInfo: EmbedInfo, isFocused: boolean }) {
 	const [isDragging, setIsDragging] = useState<boolean>(false);
 	if(isResizeable){ //todo add resizeable functionality
 		console.log("resizeable");
@@ -40,11 +41,11 @@ export default function EmbedWindow(
 		<iframe
 			src={iframeSrc}
 			style={{
-				border: "none",
+				border: "1px solid black",
 				boxSizing: "border-box",
 				width: "100%",
-				height: "400px",
-				pointerEvents: isDragging ? "none" : "inherit"
+				height: `${dimensions.y}px`,
+				pointerEvents: isDragging || !isFocused ? "none" : "inherit",
 			}}
 		></iframe>
 	</Draggable>

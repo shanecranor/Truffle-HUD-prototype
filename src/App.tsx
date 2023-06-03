@@ -26,11 +26,13 @@ function App({ inputData }: { inputData: EmbedInfo[] }) {
             position: "absolute",
             zIndex: displayOrder.indexOf(embedState.id), 
             userSelect: draggingId === embedState.id || draggingId === false ? "inherit" : "none",
-            pointerEvents: draggingId === embedState.id || draggingId === false ? "inherit" : "none",
-
+            // pointerEvents: draggingId === embedState.id || draggingId === false ? "inherit" : "none",
           }}
         >
-          <EmbedWindow embedInfo={embedState} />
+          <EmbedWindow 
+          embedInfo={embedState} 
+          isFocused={displayOrder.indexOf(embedState.id) === displayOrder.length - 1}
+          />
         </div>
       ))}
     </>
