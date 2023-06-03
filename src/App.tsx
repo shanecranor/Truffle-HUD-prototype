@@ -13,10 +13,18 @@ function App({inputData}: {inputData: EmbedInfo[]}) {
       <div className='addon-window-container'
       onMouseDown={
         //move to top of list when clicked 
-        () => setDisplayOrder((oldOrder)=>[oldOrder[index], ...oldOrder.filter((_,i)=>i!==index)] )
+        () => {setDisplayOrder((oldOrder) =>
+          {
+            const targetIdx: number = oldOrder.indexOf(embedState.id)
+            const targetItem = oldOrder[targetIdx];
+            return [...oldOrder.filter((_,i)=>i!==targetIdx), targetItem] 
+          });
+        }
+
       }
       style={{
-        zIndex: displayOrder.indexOf(embedState.id)+100,
+        position: "absolute",
+        zIndex: displayOrder.indexOf(embedState.id)
       }}   
       >
         <EmbedWindow {...embedState}/>
