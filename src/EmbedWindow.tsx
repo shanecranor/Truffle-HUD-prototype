@@ -1,8 +1,8 @@
 //react function component boilerplate
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 import Draggable from "./Draggable";
-import { EmbedInfo, Vector } from "./types";
+import { EmbedInfo } from "./types";
 
 //TODO: background windows should be differentiated somehow
 export default function EmbedWindow(
@@ -17,6 +17,10 @@ export default function EmbedWindow(
 		},
 	}: { embedInfo: EmbedInfo }) {
 	const [isDragging, setIsDragging] = useState<boolean>(false);
+	if(isResizeable){ //todo add resizeable functionality
+		console.log("resizeable");
+		console.log(id, tooltipDescription)
+	}
 	// const [isResizing, setIsResizing] = useState<boolean>(false);
 	return <Draggable defaultPosition={{ x: 0, y: 0 }}>
 		<div

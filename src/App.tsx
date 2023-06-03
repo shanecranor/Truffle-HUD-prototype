@@ -1,11 +1,10 @@
 import './App.css'
 import { useState } from 'react'
-import Draggable from './Draggable'
 import EmbedWindow from './EmbedWindow'
 import { EmbedInfo } from './types'
 function App({ inputData }: { inputData: EmbedInfo[] }) {
   const [draggingId, setDraggingId] = useState<string|boolean>(false)
-  const [embedStateList, setEmbedStateList] = useState<EmbedInfo[]>(inputData)
+  const [embedStateList] = useState<EmbedInfo[]>(inputData)
   const [displayOrder, setDisplayOrder] = useState<string[]>(inputData.map(info => info.id));
   return (
     <>
