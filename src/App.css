@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+.addon-window {
+	box-sizing: border-box;
+	border: 0.5px solid rgba(255, 255, 255, 0.15);
+	outline: 0.25px solid rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+	overflow: hidden;
+	box-shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+}
+
+.title-bar{
+	background: #171717;
+	/* border-radius: 4px; */
+	overflow: hidden;
+	font-family: 'Inter', sans-serif;
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 15px;
+}

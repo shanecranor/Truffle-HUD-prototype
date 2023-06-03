@@ -40,11 +40,11 @@ export default function EmbedWindow(
 			>
 				{title}
 			</div>
-			
+
 			<iframe
 				src={iframeSrc}
 				style={{
-					border: "1px solid black",
+					border: "none",
 					boxSizing: "border-box",
 					width: "100%",
 					height: `${dimensions.y}px`,
