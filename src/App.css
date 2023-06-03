@@ -6,6 +6,7 @@
 	border-radius: 4px;
 	overflow: hidden;
 	box-shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+	background: #1F1F1F;
 }
 
 .title-bar{
