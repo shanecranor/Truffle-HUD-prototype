@@ -22,7 +22,16 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           iframeSrc: "https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Fjack%2Fstatus%2F20", 
           title: "Cringe Twitter Addon",
           tooltipDescription: "A tweet from the founder of Twitter",
-          dimensions: {x:550,y:400},
+          dimensions: {x:550,y:220},
+          isResizeable: false
+        },
+        {
+          id:"C",
+          // id: "another unique ID 0",
+          iframeSrc: "https://codepen.io/Thisisntme/embed/Qxqgvv?default-tab=html%2Cresult&theme-id=dark&editable=true", 
+          title: "Random Codepen",
+          tooltipDescription: "A cool random codepen",
+          dimensions: {x:850,y:420},
           isResizeable: false
         },
       ]

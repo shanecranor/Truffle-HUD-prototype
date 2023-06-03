@@ -53,7 +53,7 @@ export default function Draggable(
 				top: dragInfo.current.y + "px",
 				left: dragInfo.current.x + "px",
 				//disable text selection while dragging
-				"user-select": dragInfo.pressed ? "none" : "inherit",
+				userSelect: dragInfo.pressed ? "none" : "inherit",
 			} as React.CSSProperties}
 			onMouseDown={(e: React.MouseEvent<HTMLElement>) => {
 				const target = e.target as HTMLElement;
