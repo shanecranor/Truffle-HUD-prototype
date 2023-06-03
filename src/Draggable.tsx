@@ -1,4 +1,4 @@
-import { JSX, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { Vector, DragInfo } from "./types";
 export default function Draggable(
@@ -69,21 +69,21 @@ export default function Draggable(
           "user-select": dragInfo.pressed ? "none" : "inherit",
         } as React.CSSProperties}
 				onMouseDown={(e: React.MouseEvent<HTMLElement>) => {
-					const target: EventTarget = e.target;
-					const classes: string = (target as Element).className;
+					const target = e.target as HTMLElement;
+					const classes: string = target.className;
 					//prevent dragging by links and any class that has the prevent-drag class
-					// console.log(classes);
-					//multiple events are fired for some reason, this ignores all events triggered by a certain classname
+					//console.log(classes);
+					//sometimes multiple events are fired, this ignores all events triggered by a certain classname
 					if (ignoreClassName && classes.includes(ignoreClassName)) return;
 					if (requiredClassName && !classes.includes(requiredClassName)) {
 						setDragInfo((old: DragInfo) => ({ ...old, draggable: false }));
 					}
 					// prevent dragging by links and elements that have the prevent-drag class by default
-					if ((target as Element).tagName === "A" || classes.includes("prevent-drag")) {
+					if (target.tagName === "A" || classes.includes("prevent-drag")) {
 						setDragInfo((old: DragInfo) => ({ ...old, draggable: false }));
 					}
 				}}
-				onDragStart={(e: DragEvent<HTMLDivElement>) => {
+				onDragStart={(e: React.DragEvent<HTMLElement>) => {
 					e.preventDefault();
 					if (dragInfo.draggable) {
 						setDragInfo((old: DragInfo) => ({
@@ -96,7 +96,7 @@ export default function Draggable(
 						}));
 					}
 				}}
-				onMouseUp={(e) => {
+				onMouseUp={() => {
 					setDragInfo((old: DragInfo) => ({
 						...old,
 						pressed: false,
