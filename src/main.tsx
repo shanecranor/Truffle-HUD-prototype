@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           title: "🐷 Pigtionary Addon",
           tooltipDescription: "A pictionary game for Truffle",
           dimensions: {x:900,y:400},
-          isResizeable: false
+          isResizeable: true
         },
         {
           id:"B",
@@ -23,7 +23,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           title: "Cringe Twitter Addon",
           tooltipDescription: "A tweet from the founder of Twitter",
           dimensions: {x:550,y:220},
-          isResizeable: false
+          isResizeable: true,
+          resizeBounds: {minWidth: 320, maxWidth: 550, minHeight: 280, maxHeight: 280}
         },
         {
           id:"C",
@@ -32,7 +33,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           title: "Random Codepen",
           tooltipDescription: "A cool random codepen",
           dimensions: {x:850,y:420},
-          isResizeable: false
+          isResizeable: true,
         },
       ]
     }/>

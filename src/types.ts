@@ -10,6 +10,13 @@ export interface DragInfo {
   draggable: boolean;
 }
 
+export interface ResizeBounds {
+	minWidth: number;
+	maxWidth: number;
+	minHeight: number;
+	maxHeight: number;
+}
+
 export interface EmbedInfo {
 	id: string,
 	iframeSrc: string,
@@ -17,4 +24,5 @@ export interface EmbedInfo {
 	tooltipDescription: string,
 	dimensions: Vector,
 	isResizeable: boolean
+	resizeBounds?: ResizeBounds
 }

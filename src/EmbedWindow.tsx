@@ -13,25 +13,28 @@ export default function EmbedWindow(
 			title,
 			tooltipDescription,
 			dimensions,
-			isResizeable
+			isResizeable,
+			resizeBounds
 		},
 		isFocused,
 	}: { embedInfo: EmbedInfo, isFocused: boolean }) {
 	const [isDragging, setIsDragging] = useState<boolean>(false);
-	if (isResizeable) { //todo add resizeable functionality
-		console.log("resizeable");
-		console.log(id, tooltipDescription)
-	}
+	tooltipDescription; id;
+	console.log(resizeBounds)
 	// const [isResizing, setIsResizing] = useState<boolean>(false);
 	return <Draggable defaultPosition={{ x: 0, y: 0 }}>
 		<div className="addon-window"
 			onMouseDown={() => { setIsDragging(true); }}
 			onMouseUp={() => setIsDragging(false)}
 			style={{
-				resize: "both",
+				resize: isResizeable ? "both" : "none",
 				display: "flex",
 				flexDirection: "column",
 				width: `${dimensions.x}px`,
+				maxHeight: 	resizeBounds?.maxHeight ? `${ resizeBounds.maxHeight}px` : "inherit",
+				maxWidth: 	resizeBounds?.maxWidth 	? `${ resizeBounds.maxWidth	}px` : "inherit",
+				minHeight: 	resizeBounds?.minHeight ? `${ resizeBounds.minHeight}px` : "inherit",
+				minWidth:		resizeBounds?.minWidth 	? `${ resizeBounds.minWidth	}px` : "inherit",
 			}}
 		>
 			<div className="title-bar"> {title} </div>
