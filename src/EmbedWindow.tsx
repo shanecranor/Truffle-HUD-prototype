@@ -28,13 +28,9 @@ export default function EmbedWindow(
 			onMouseUp={() => setIsDragging(false)}
 			style={{
 				resize: isResizeable ? "both" : "none",
-				display: "flex",
-				flexDirection: "column",
 				width: `${dimensions.x}px`,
-				maxHeight: 	resizeBounds?.maxHeight ? `${ resizeBounds.maxHeight}px` : "inherit",
-				maxWidth: 	resizeBounds?.maxWidth 	? `${ resizeBounds.maxWidth	}px` : "inherit",
-				minHeight: 	resizeBounds?.minHeight ? `${ resizeBounds.minHeight}px` : "inherit",
-				minWidth:		resizeBounds?.minWidth 	? `${ resizeBounds.minWidth	}px` : "inherit",
+				//if resizebounds isn't passed, just use the defaults set in App.css
+				...(resizeBounds || {}), 
 			}}
 		>
 			<div className="title-bar"> {title} </div>
@@ -42,8 +38,6 @@ export default function EmbedWindow(
 			<iframe
 				src={iframeSrc}
 				style={{
-					flexGrow:"1",
-					width: "100%",
 					height: `${dimensions.y}px`,
 					pointerEvents: isDragging || !isFocused ? "none" : "inherit",
 				}}

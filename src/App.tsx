@@ -23,10 +23,8 @@ function App({ inputData }: { inputData: EmbedInfo[] }) {
           }
           onMouseUp={() => setDraggingId(false)}
           style={{
-            position: "fixed",
             zIndex: displayOrder.indexOf(embedState.id), 
             userSelect: draggingId === embedState.id || draggingId === false ? "inherit" : "none",
-            // pointerEvents: draggingId === embedState.id || draggingId === false ? "inherit" : "none",
           }}
         >
           <EmbedWindow 
