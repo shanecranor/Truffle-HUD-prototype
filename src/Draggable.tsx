@@ -20,6 +20,7 @@ export default function Draggable(
 		},
 	);
 	useEffect(() => {
+		//prevents window from being stuck out of bounds on zoom or window resize
 		const handleWindowResize = () => {
 			setDragInfo((old: DragInfo) => (
 				{
@@ -66,7 +67,6 @@ export default function Draggable(
 		<div
 			draggable={true}
 			style={{
-				//set position of child container
 				width: "fit-content",
 				position: "absolute",
 				top: dragInfo.current.y + "px",
@@ -78,7 +78,6 @@ export default function Draggable(
 				const target = e.target as HTMLElement;
 				const classes: string = target.className;
 				//prevent dragging by links and any class that has the prevent-drag class
-				//console.log(classes);
 				//sometimes multiple events are fired, this ignores all events triggered by a certain classname
 				if (ignoreClassName && classes.includes(ignoreClassName)) return;
 				if (requiredClassName && !classes.includes(requiredClassName)) {

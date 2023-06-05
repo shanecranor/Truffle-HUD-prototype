@@ -10,13 +10,28 @@
 }
 
 .title-bar{
+	color: white;
 	background: #171717;
-	overflow: hidden;
+
 	font-family: 'Inter', sans-serif;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+
+	height: 32px;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 15px;
+
+	box-sizing: border-box;
+	overflow: hidden;
+	flex-shrink: 0;
+	flex-grow: 0;
 }
 iframe{
 	display: block;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border: none;
 }

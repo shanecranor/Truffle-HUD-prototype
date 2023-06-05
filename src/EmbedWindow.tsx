@@ -27,16 +27,16 @@ export default function EmbedWindow(
 		<div className="addon-window"
 			onMouseDown={() => { setIsDragging(true); }}
 			onMouseUp={() => setIsDragging(false)}
+			style={{
+				resize: "both",
+				display: "flex",
+				flexDirection: "column",
+				width: `${dimensions.x}px`
+			}}
 		>
 			<div
 				className="title-bar"
-				style={{
-					background: "black",
-					color: "white",
-					width: `${dimensions.x}px`,
-					padding: "10px",
-					boxSizing: "border-box",
-				}}
+				style={{  width: "100%"}}
 			>
 				{title}
 			</div>
@@ -44,13 +44,14 @@ export default function EmbedWindow(
 			<iframe
 				src={iframeSrc}
 				style={{
-					border: "none",
-					boxSizing: "border-box",
+					flexGrow:"1",
 					width: "100%",
 					height: `${dimensions.y}px`,
 					pointerEvents: isDragging || !isFocused ? "none" : "inherit",
 				}}
 			></iframe>
+			{/* <div className="resize-y"
+			style={{height: "0.5px", background: "red", hover}}/> */}
 		</div>
 	</Draggable>
 
