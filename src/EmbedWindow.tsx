@@ -31,15 +31,10 @@ export default function EmbedWindow(
 				resize: "both",
 				display: "flex",
 				flexDirection: "column",
-				width: `${dimensions.x}px`
+				width: `${dimensions.x}px`,
 			}}
 		>
-			<div
-				className="title-bar"
-				style={{  width: "100%"}}
-			>
-				{title}
-			</div>
+			<div className="title-bar"> {title} </div>
 
 			<iframe
 				src={iframeSrc}

@@ -12,17 +12,16 @@
 .title-bar{
 	color: white;
 	background: #171717;
-
 	font-family: 'Inter', sans-serif;
-	display: flex;
-	align-items: center;
-	padding: 10px;
-
 	height: 32px;
+	width:100%;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 15px;
 
+	display: flex;
+	align-items: center;
+	padding: 10px;
 	box-sizing: border-box;
 	overflow: hidden;
 	flex-shrink: 0;
