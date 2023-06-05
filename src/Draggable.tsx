@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import { Vector, DragInfo } from "./types";
+const MIN_WINDOW_VISIBLE_PIXELS = 25;
 export default function Draggable(
 	{ children, defaultPosition, requiredClassName, ignoreClassName }:
 		{
@@ -18,6 +19,24 @@ export default function Draggable(
 			draggable: true,
 		},
 	);
+	useEffect(() => {
+		const handleWindowResize = () => {
+			setDragInfo((old: DragInfo) => (
+				{
+					...old,
+					current: {
+						x: Math.min(old.current.x, window.innerWidth- MIN_WINDOW_VISIBLE_PIXELS),
+						y: Math.min(old.current.y, window.innerHeight-MIN_WINDOW_VISIBLE_PIXELS),
+					},
+				}
+			));
+		};
+		window.addEventListener("resize", handleWindowResize);
+		return () => (window.removeEventListener(
+			"resize",
+			handleWindowResize,
+		));
+	},[])
 
 	useEffect(() => {
 		const handleWindowMouseMove = (event: MouseEvent) => {
