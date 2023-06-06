@@ -1,4 +1,4 @@
-import WindowManager from "./window-system/window-manager"
+import WindowManager from "./window-system/window-manager.tsx"
 import { CreatorInfo, EmbedInfo } from "./types.ts"
 import TruffleSidebar from "./sidebar/sidebar.tsx"
 function App({ embedList, creatorList }: { embedList: EmbedInfo[], creatorList: CreatorInfo[]}) {
