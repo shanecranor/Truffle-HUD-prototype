@@ -1,5 +1,5 @@
 import { EmbedInfo } from '../types'
-export default function EmbedIcon ({ embedInfo }: { embedInfo: EmbedInfo }) {
+export default function EmbedItem ({ embedInfo }: { embedInfo: EmbedInfo }) {
 	return <div className="sidebar-item embed-item">
 		<img 
 		className="icon"

@@ -7,11 +7,29 @@
 	background: #1f1f1f;
 	display: flex;
 	flex-direction: column;
+
 	gap: 20px 0px;
 	> .sidebar-item {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		&.profile-item{
+			margin-top: 12px;
+			>.item-container{
+				width: 48px;
+				height: 48px;
+				background: #2f2f2f;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				>.icon{
+					width: 28px;
+					height: 28px;
+				}
+			}
+
+		}
 		&.creator-item{
 			>.icon{
 				width: 48px;
