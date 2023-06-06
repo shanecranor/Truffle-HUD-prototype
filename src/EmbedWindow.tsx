@@ -20,10 +20,11 @@ export default function EmbedWindow(
 	}: { embedInfo: EmbedInfo, isFocused: boolean }) {
 	const [isDragging, setIsDragging] = useState<boolean>(false);
 	tooltipDescription; id;
-	console.log(resizeBounds)
 	// const [isResizing, setIsResizing] = useState<boolean>(false);
 	return <Draggable defaultPosition={{ x: 0, y: 0 }}>
-		<div className="addon-window"
+		<div 
+			className="addon-window"
+			id={`${id}-window`}
 			onMouseDown={() => { setIsDragging(true); }}
 			onMouseUp={() => setIsDragging(false)}
 			style={{
@@ -36,14 +37,13 @@ export default function EmbedWindow(
 			<div className="title-bar"> {title} </div>
 
 			<iframe
+				id={`${id}-iframe`}
 				src={iframeSrc}
 				style={{
 					height: `${dimensions.y}px`,
 					pointerEvents: isDragging || !isFocused ? "none" : "inherit",
 				}}
-			></iframe>
-			{/* <div className="resize-y"
-			style={{height: "0.5px", background: "red", hover}}/> */}
+			/>
 		</div>
 	</Draggable>
 
