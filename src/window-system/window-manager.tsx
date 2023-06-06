@@ -1,46 +1,43 @@
-import EmbedWindow from './embed-window.tsx'
-import { useStyleSheet } from '../deps/styles.ts'
+import EmbedWindow from './embed-window';
+import { useStyleSheet } from '../deps/styles';
 import styleSheet from './window-system.scss.js';
-import { embedList } from '../state.ts'
-import { observable } from '@legendapp/state';
-import { observer } from "@legendapp/state/react"
+import {
+  embedList,
+  embedWindowStates,
+  moveEmbedWindowEmbedToTop,
+} from '../state';
+import { observer, useComputed } from '@legendapp/state/react';
 
 function WindowManager() {
   useStyleSheet(styleSheet);
-  const draggingId = observable<string|boolean>(false)
-  const displayOrder = observable<string[]>(embedList.peek().map(info => info.id));
+
+  const numEmbeds$ = useComputed(() => embedList.get().length);
+
   return (
     <>
-      {embedList.get().map((embedState) => (
-        <div className='addon-window-container'
-          onMouseDown={
-            () => {
-              displayOrder.set((oldOrder) => {
-                const targetIdx: number = oldOrder.indexOf(embedState.id)
-                const targetItem = oldOrder[targetIdx];
-                //move to bottom of list when clicked 
-                return [...oldOrder.filter((_, i) => i !== targetIdx), targetItem]
-              })
-            draggingId.set(embedState.id)
-            }
-          }
-          onMouseUp={() => draggingId.set(false)}
-          style={{
-            zIndex: displayOrder.get().indexOf(embedState.id), 
-            userSelect: draggingId.get() === embedState.id ||
-                        draggingId.get() === false ? "inherit" : "none",
-            visibility: embedState.isOpen ? "visible" : "hidden",
-          }}
-        >
-          <EmbedWindow 
-          embedInfo={embedState} 
-          isFocused={displayOrder.get().indexOf(embedState.id) === displayOrder.get().length - 1}
-          />
-        </div>
-      ))}
-    </>
+      {embedList.map((embed$) => {
+        const embed = embed$.peek();
+        const windowState$ = embedWindowStates[embed.id];
 
-  )
+        return (
+          <div
+            key={embed.id}
+            className="addon-window-container"
+            onMouseDown={() => moveEmbedWindowEmbedToTop(embed.id)}
+            style={{
+              zIndex: windowState$.zIndex.get(),
+              visibility: windowState$.isOpen.get() ? 'visible' : 'hidden',
+            }}
+          >
+            <EmbedWindow
+              embedInfo={embed}
+              isFocused={windowState$.zIndex.get() === numEmbeds$.get() - 1}
+            />
+          </div>
+        );
+      })}
+    </>
+  );
 }
 
-export default observer(WindowManager)
+export default observer(WindowManager);

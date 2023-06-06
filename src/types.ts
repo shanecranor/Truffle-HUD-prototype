@@ -23,10 +23,11 @@ export interface EmbedInfo {
 	iconSrc: string,
 	iframeSrc: string,
 	tooltipDescription: string,
-	dimensions: Vector,
+	embedWindow: {
+		initialDimensions: Vector,
+	}
 	isResizeable: boolean,
 	resizeBounds?: ResizeBounds,
-	isOpen: boolean
 }
 
 export enum Platform {
@@ -40,4 +41,10 @@ export interface CreatorInfo {
 	iconSrc: string,
 	isLive: boolean,
 	platform: Platform
+}
+
+export interface EmbedWindowState {
+	embedId: string;
+	isOpen: boolean;
+	zIndex: number;
 }

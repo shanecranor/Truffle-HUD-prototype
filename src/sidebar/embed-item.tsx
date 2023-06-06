@@ -1,23 +1,25 @@
-import { EmbedInfo } from '../types.ts'
-import { embedList } from '../state.ts'
-export default function EmbedItem ({ embedInfo }: { embedInfo: EmbedInfo }) {
-	return <>
-	<div 
-	className="sidebar-item embed-item"
-	onClick={() => {
-		embedList.set((oldList: EmbedInfo[]) => {
-			console.log("oldList", oldList)
-			const targetEmbedId = embedInfo.id;
-			const targetIdx: number = oldList.findIndex((embed) => embed.id === targetEmbedId)
-			const targetItem = oldList[targetIdx];
-			return [...oldList.filter((_, i) => i !== targetIdx), {...targetItem, isOpen: !targetItem.isOpen}]
-		})
-	}}>
-		<img 
-		className="icon"
-		src={embedInfo.iconSrc} 
-		alt={embedInfo.title}
-		/>
-	</div>
-	</>
+import { EmbedInfo } from '../types';
+import {
+  embedList,
+  moveEmbedWindowEmbedToTop,
+  toggleEmbedWindowVisibility,
+} from '../state';
+export default function EmbedItem({ embedInfo }: { embedInfo: EmbedInfo }) {
+  return (
+    <>
+      <div
+        className="sidebar-item embed-item"
+        // clicking the embed icon should show/hide it
+        onClick={() => {
+          // if we're about to open the embed, make sure it's on top
+          const isOpen = embedList[embedInfo.id].isOpen.peek();
+          if (!isOpen) moveEmbedWindowEmbedToTop(embedInfo.id);
+
+          toggleEmbedWindowVisibility(embedInfo.id);
+        }}
+      >
+        <img className="icon" src={embedInfo.iconSrc} alt={embedInfo.title} />
+      </div>
+    </>
+  );
 }

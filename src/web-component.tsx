@@ -66,7 +66,7 @@ iframe{
     // Render the React app inside the web component
     render(
       <React.StrictMode>
-        <App/>
+        <App />
       </React.StrictMode>,
       mountPoint
     );
