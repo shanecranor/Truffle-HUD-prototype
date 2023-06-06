@@ -8,10 +8,7 @@ import './index.css'
 import {embedList, creatorList} from './state.ts'
 render(
   <React.StrictMode>
-  <App 
-  embedList={embedList}
-  creatorList={creatorList}
-  />
+  <App />
 </React.StrictMode>,
   document.getElementById('root')
 );
