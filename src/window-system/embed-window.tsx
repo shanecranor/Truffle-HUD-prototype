@@ -1,8 +1,7 @@
 //react function component boilerplate
 import { useState } from "react";
-import "./App.css";
-import Draggable from "./Draggable";
-import { EmbedInfo } from "./types";
+import Draggable from "./draggable";
+import { EmbedInfo } from "../types";
 
 //TODO: background windows should be differentiated somehow
 export default function EmbedWindow(

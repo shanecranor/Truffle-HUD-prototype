@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import React from "react";
-import { Vector, DragInfo } from "./types";
+import { Vector, DragInfo } from "../types";
 const MIN_WINDOW_VISIBLE_PIXELS = 25;
 export default function Draggable(
 	{ children, defaultPosition, requiredClassName, ignoreClassName }:

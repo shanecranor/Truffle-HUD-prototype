@@ -19,10 +19,22 @@ export interface ResizeBounds {
 
 export interface EmbedInfo {
 	id: string,
-	iframeSrc: string,
 	title: string,
+	iconSrc: string,
+	iframeSrc: string,
 	tooltipDescription: string,
 	dimensions: Vector,
 	isResizeable: boolean
 	resizeBounds?: ResizeBounds
+}
+export enum Platform {
+	twitch = "twitch",
+	youtube = "youtube",
+}
+export interface CreatorInfo {
+	id: string,
+	name: string,
+	iconSrc: string,
+	isLive: boolean,
+	platform: Platform
 }
