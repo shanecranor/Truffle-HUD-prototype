@@ -3,7 +3,6 @@ import { useState } from "react";
 import Draggable from "./draggable";
 import { EmbedInfo } from "../types";
 
-//TODO: background windows should be differentiated somehow
 export default function EmbedWindow(
 	{
 		embedInfo: {
@@ -13,7 +12,7 @@ export default function EmbedWindow(
 			tooltipDescription,
 			dimensions,
 			isResizeable,
-			resizeBounds
+			resizeBounds,
 		},
 		isFocused,
 	}: { embedInfo: EmbedInfo, isFocused: boolean }) {
@@ -27,6 +26,7 @@ export default function EmbedWindow(
 			onMouseDown={() => { setIsDragging(true); }}
 			onMouseUp={() => setIsDragging(false)}
 			style={{
+				// display: isOpen ? "block" : "none",
 				resize: isResizeable ? "both" : "none",
 				width: `${dimensions.x}px`,
 				//if resizebounds isn't passed, just use the defaults set in App.css

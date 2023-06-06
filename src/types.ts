@@ -1,13 +1,13 @@
 export interface Vector {
-  x: number;
-  y: number;
+	x: number;
+	y: number;
 }
 
 export interface DragInfo {
-  current: Vector;
-  start: Vector;
-  pressed: boolean;
-  draggable: boolean;
+	current: Vector;
+	start: Vector;
+	pressed: boolean;
+	draggable: boolean;
 }
 
 export interface ResizeBounds {
@@ -24,13 +24,16 @@ export interface EmbedInfo {
 	iframeSrc: string,
 	tooltipDescription: string,
 	dimensions: Vector,
-	isResizeable: boolean
-	resizeBounds?: ResizeBounds
+	isResizeable: boolean,
+	resizeBounds?: ResizeBounds,
+	isOpen: boolean
 }
+
 export enum Platform {
 	twitch = "twitch",
 	youtube = "youtube",
 }
+
 export interface CreatorInfo {
 	id: string,
 	name: string,

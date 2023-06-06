@@ -1,35 +1,40 @@
-import './window-system.css'
-import { useState } from 'react'
-import EmbedWindow from './embed-window'
-import { EmbedInfo } from '../types'
-function WindowManager({ embedList }: { embedList: EmbedInfo[] }) {
-  const [draggingId, setDraggingId] = useState<string|boolean>(false)
-  const [embedStateList] = useState<EmbedInfo[]>(embedList)
-  const [displayOrder, setDisplayOrder] = useState<string[]>(embedList.map(info => info.id));
+import EmbedWindow from './embed-window.tsx'
+import { useStyleSheet } from '../deps/styles.ts'
+import styleSheet from './window-system.scss.js';
+import { embedList } from '../state.ts'
+import { observable } from '@legendapp/state';
+import { observer } from "@legendapp/state/react"
+
+function WindowManager() {
+  useStyleSheet(styleSheet);
+  const draggingId = observable<string|boolean>(false)
+  const displayOrder = observable<string[]>(embedList.peek().map(info => info.id));
   return (
     <>
-      {embedStateList.map((embedState) => (
+      {embedList.get().map((embedState) => (
         <div className='addon-window-container'
           onMouseDown={
             () => {
-              setDisplayOrder((oldOrder) => {
+              displayOrder.set((oldOrder) => {
                 const targetIdx: number = oldOrder.indexOf(embedState.id)
                 const targetItem = oldOrder[targetIdx];
                 //move to bottom of list when clicked 
                 return [...oldOrder.filter((_, i) => i !== targetIdx), targetItem]
               })
-            setDraggingId(embedState.id)
+            draggingId.set(embedState.id)
             }
           }
-          onMouseUp={() => setDraggingId(false)}
+          onMouseUp={() => draggingId.set(false)}
           style={{
-            zIndex: displayOrder.indexOf(embedState.id), 
-            userSelect: draggingId === embedState.id || draggingId === false ? "inherit" : "none",
+            zIndex: displayOrder.get().indexOf(embedState.id), 
+            userSelect: draggingId.get() === embedState.id ||
+                        draggingId.get() === false ? "inherit" : "none",
+            visibility: embedState.isOpen ? "visible" : "hidden",
           }}
         >
           <EmbedWindow 
           embedInfo={embedState} 
-          isFocused={displayOrder.indexOf(embedState.id) === displayOrder.length - 1}
+          isFocused={displayOrder.get().indexOf(embedState.id) === displayOrder.get().length - 1}
           />
         </div>
       ))}
@@ -38,4 +43,4 @@ function WindowManager({ embedList }: { embedList: EmbedInfo[] }) {
   )
 }
 
-export default WindowManager
+export default observer(WindowManager)

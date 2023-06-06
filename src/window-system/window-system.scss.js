@@ -1,3 +1,6 @@
+import { scss } from '../deps/styles';
+
+export default scss`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
 .addon-window-container {
 	position: fixed;
@@ -46,3 +49,4 @@ iframe{
 	flex-grow: 1;
 	width: 100%;
 }
+`

@@ -1,14 +1,27 @@
-.truffle-sidebar{
+import { scss } from '../deps/styles';
+
+export default scss`
+.truffle-sidebar-mouseover-detector{
 	position: fixed;
 	top: 0;
 	left: 0;
 	height: 100%;
+	background:red;
+	// z-index: 1000;
+}
+.truffle-sidebar{
+	position: fixed;
+	top: 0;
+	left: 0;
+	transition: left 0.2s ease-in-out;
+	height: 100%;
 	width: 72px;
 	background: #1f1f1f;
+	z-index: 999;
 	display: flex;
 	flex-direction: column;
-
 	gap: 20px 0px;
+
 	> .sidebar-item {
 		display: flex;
 		flex-direction: column;
@@ -49,3 +62,4 @@
 	object-fit: cover;
 	border-radius: 50%;
 }
+`
