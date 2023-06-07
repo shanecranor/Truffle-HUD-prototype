@@ -25,7 +25,8 @@ function WindowManager() {
             className="addon-window-container"
             onMouseDown={() => moveEmbedWindowEmbedToTop(embed.id)}
             style={{
-              zIndex: windowState$.zIndex.get(),
+              // make sure it's higher than youtube
+              zIndex: windowState$.zIndex.get() + 10000,
               visibility: windowState$.isOpen.get() ? 'visible' : 'hidden',
             }}
           >

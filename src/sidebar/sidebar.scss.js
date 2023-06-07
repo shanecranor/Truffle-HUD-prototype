@@ -1,13 +1,19 @@
 import { scss } from '../deps/styles';
 
 export default scss`
-.truffle-sidebar-mouseover-detector{
+.truffle-sidebar-mouse-leave-detector{
+	position: fixed;
+	top: 0;
+	right: 0;
+	height: 100%;
+	z-index: 11;
+}
+.truffle-sidebar-mouse-enter-detector{
 	position: fixed;
 	top: 0;
 	left: 0;
 	height: 100%;
-	background:red;
-	// z-index: 1000;
+	z-index: 11000;
 }
 .truffle-sidebar{
 	position: fixed;
@@ -17,7 +23,7 @@ export default scss`
 	height: 100%;
 	width: 72px;
 	background: #1f1f1f;
-	z-index: 999;
+	z-index: 11001;
 	display: flex;
 	flex-direction: column;
 	gap: 20px 0px;
@@ -62,4 +68,4 @@ export default scss`
 	object-fit: cover;
 	border-radius: 50%;
 }
-`
+`;

@@ -14,21 +14,32 @@ const MOUSEOVER_DETECTOR_WIDTH: number = 8;
 function TruffleSidebar() {
   const currentCreator: CreatorInfo = creatorList.get()[0]; //TODO set current creator in state instead of hardcoding
   useStyleSheet(styleSheet);
-  const isHovering = useObservable<boolean>(false);
-  console.log('isHovering', isHovering.get());
+  const isOpen = useObservable<boolean>(true);
   return (
     <>
       <div
-        className="truffle-sidebar-mouseover-detector"
+        className="truffle-sidebar-mouse-leave-detector"
+        style={{ width: `calc(100% - ${MOUSEOVER_DETECTOR_WIDTH}px)` }}
+				onMouseLeave={(e: React.MouseEvent) => {
+					//only open the sidebar if the mouse is on the left side of the screen
+					if(e.clientX <= MOUSEOVER_DETECTOR_WIDTH)
+						isOpen.set(true)
+				}}
+      />
+			<div
+        className="truffle-sidebar-mouse-enter-detector"
         style={{ width: `${MOUSEOVER_DETECTOR_WIDTH}px` }}
-        onMouseEnter={() => isHovering.set(true)}
-      ></div>
+				onMouseEnter={() => {
+						isOpen.set(true)
+				}}
+      />
       <div
         className="truffle-sidebar"
-        style={{ left: isHovering.get() ? '0px' : '-72px' }}
+        style={{ left: isOpen.get() ?  '0px' : '-72px' }}
         onMouseLeave={(e: React.MouseEvent) => {
-		if(e.clientX > 0) isHovering.set(false) //TODO: fix this hack
-		}}
+					if(e.clientX > MOUSEOVER_DETECTOR_WIDTH)
+					 isOpen.set(false)
+				}}
       >
         <TruffleProfileItem />
         {/* display the current creator on top, even if they aren't in the user's creator list */}

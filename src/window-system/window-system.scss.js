@@ -19,34 +19,39 @@ export default scss`
 	
 	min-width: 64px;
 	min-height: 64px;
-}
+	user-select: none;
+	&focused-window{
+		user-select: auto;
+	}
+	>.title-bar{
+		color: white;
+		background: #171717;
+		font-family: 'Inter', sans-serif;
+		height: 32px;
+		width:100%;
+		font-weight: 600;
+		font-size: 12px;
+		line-height: 15px;
+	
+		display: flex;
+		align-items: center;
+		padding: 10px;
+		box-sizing: border-box;
+		overflow: hidden;
+		flex-shrink: 0;
+		flex-grow: 0;
+	}
+	>iframe{
+		display: block;
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+		border: none;
+		flex-grow: 1;
+		width: 100%;
+	}
 
-.title-bar{
-	color: white;
-	background: #171717;
-	font-family: 'Inter', sans-serif;
-	height: 32px;
-	width:100%;
-	font-weight: 600;
-	font-size: 12px;
-	line-height: 15px;
-
-	display: flex;
-	align-items: center;
-	padding: 10px;
-	box-sizing: border-box;
-	overflow: hidden;
-	flex-shrink: 0;
-	flex-grow: 0;
-}
-
-iframe{
-	display: block;
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	border: none;
-	flex-grow: 1;
-	width: 100%;
 }
 `
+
+

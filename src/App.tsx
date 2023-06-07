@@ -1,5 +1,5 @@
-import WindowManager from './window-system/window-manager.tsx';
-import TruffleSidebar from './sidebar/sidebar.tsx';
+import WindowManager from './window-system/window-manager';
+import TruffleSidebar from './sidebar/sidebar';
 
 function App() {
   return (

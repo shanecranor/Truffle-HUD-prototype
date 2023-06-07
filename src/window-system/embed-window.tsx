@@ -25,7 +25,7 @@ export default function EmbedWindow({
   return (
     <Draggable defaultPosition={{ x: 0, y: 0 }}>
       <div
-        className="addon-window"
+        className={`addon-window ${isFocused ? 'focused-window' : ''}`}
         id={`${id}-window`}
         onMouseDown={() => {
           setIsDragging(true);
