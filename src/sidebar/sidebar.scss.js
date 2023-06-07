@@ -8,6 +8,23 @@ export default scss`
 	height: 100%;
 	z-index: 11;
 }
+.truffle-sidebar-gatekeeper{
+	position: fixed;
+	top: 0;
+	left: 0;
+	transition: left 0.2s ease-in-out;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 72px;
+	z-index: 10900;
+	>.truffle-logo{
+		margin-top: 12px;
+		width: 48px;
+		height: 48px;
+	}
+}
 .truffle-sidebar-mouse-enter-detector{
 	position: fixed;
 	top: 0;
