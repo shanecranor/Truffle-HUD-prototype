@@ -73,10 +73,41 @@ export default scss`
 			}
 		}
 		&.embed-item{
+			background: none;
+			border: 0;
 			>.icon{
 				width: 40px;
 				height: 40px;
 			}
+		}
+		>.tooltip{
+			visibility: hidden;
+			// width: 200px;
+			white-space: nowrap;
+			background-color: #171717;
+			border: 0.5px solid white;
+			color: #fff;
+			text-align: center;
+			border-radius: 6px;
+			padding: 10px;
+			position: absolute;
+			z-index: 1;
+			// top: -5px;
+			left: 110%;
+			box-shadow: 0 10px 70px rgba(0, 0, 0, 0.35);
+			&::before{
+				content: " ";
+				position: absolute;
+				top: 50%;
+				right: 100%; /* To the left of the tooltip */
+				margin-top: -5px;
+				border-width: 5px;
+				border-style: solid;
+				border-color: transparent #171717 transparent transparent;
+			}
+		}
+		&:hover .tooltip{
+			visibility: visible;
 		}
 	}
 }

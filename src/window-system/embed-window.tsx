@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import Draggable from './draggable';
 import { EmbedInfo } from '../types';
-
+import closeIcon from '../assets/close.svg';
+import { setEmbedWindowVisibility } from '../state';
 export default function EmbedWindow({
   embedInfo: {
     id,
@@ -21,9 +22,8 @@ export default function EmbedWindow({
   const [isDragging, setIsDragging] = useState<boolean>(false);
   tooltipDescription;
   id;
-  // const [isResizing, setIsResizing] = useState<boolean>(false);
   return (
-    <Draggable defaultPosition={{ x: 0, y: 0 }}>
+    <Draggable defaultPosition={{ x: 72, y: 0 }}>
       <div
         className={`addon-window ${isFocused ? 'focused-window' : ''}`}
         id={`${id}-window`}
@@ -39,7 +39,12 @@ export default function EmbedWindow({
           ...(resizeBounds || {}),
         }}
       >
-        <div className="title-bar"> {title} </div>
+        <div className="title-bar"> {title}
+				 <button className='close-window-btn'
+					onClick={() => setEmbedWindowVisibility(id, false)}>
+					<img src={closeIcon}/>
+					</button>
+				</div>
 
         <iframe
           id={`${id}-iframe`}

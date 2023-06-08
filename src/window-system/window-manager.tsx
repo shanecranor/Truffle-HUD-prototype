@@ -4,7 +4,7 @@ import styleSheet from './window-system.scss.js';
 import {
   embedList,
   embedWindowStates,
-  moveEmbedWindowEmbedToTop,
+  moveEmbedWindowToTop,
 } from '../state';
 import { observer, useComputed } from '@legendapp/state/react';
 
@@ -23,7 +23,7 @@ function WindowManager() {
           <div
             key={embed.id}
             className="addon-window-container"
-            onMouseDown={() => moveEmbedWindowEmbedToTop(embed.id)}
+            onMouseDown={() => moveEmbedWindowToTop(embed.id)}
             style={{
               // make sure it's higher than youtube
               zIndex: windowState$.zIndex.get() + 10000,

@@ -75,7 +75,7 @@ export function setEmbedWindowVisibility(embedId: string, isOpen: boolean) {
   embedWindowStates[embedId].isOpen.set(isOpen);
 }
 
-export function moveEmbedWindowEmbedToTop(embedId: string) {
+export function moveEmbedWindowToTop(embedId: string) {
   // use batch to only fire listeners once even though we call set multiple times
   // https://legendapp.com/open-source/state/batching/
   batch(() => {

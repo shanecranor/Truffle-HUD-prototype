@@ -40,6 +40,17 @@ export default scss`
 		overflow: hidden;
 		flex-shrink: 0;
 		flex-grow: 0;
+		>.close-window-btn{
+			all: unset;
+			margin-left: auto;
+			border: 0;
+			border-radius: 0;
+			background: none;
+			font-size: 20px;
+			color: white;
+			font-family: 'Inter';
+			cursor: pointer;
+		}
 	}
 	>iframe{
 		display: block;

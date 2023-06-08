@@ -1,25 +1,22 @@
 import { EmbedInfo } from '../types';
 import {
-  embedList,
-  moveEmbedWindowEmbedToTop,
-  toggleEmbedWindowVisibility,
+  moveEmbedWindowToTop,
+  setEmbedWindowVisibility,
 } from '../state';
 export default function EmbedItem({ embedInfo }: { embedInfo: EmbedInfo }) {
   return (
     <>
-      <div
+      <button
         className="sidebar-item embed-item"
-        // clicking the embed icon should show/hide it
         onClick={() => {
-          // if we're about to open the embed, make sure it's on top
-          const isOpen = embedList[embedInfo.id].isOpen.peek();
-          if (!isOpen) moveEmbedWindowEmbedToTop(embedInfo.id);
-
-          toggleEmbedWindowVisibility(embedInfo.id);
+          // move embed to the top
+					moveEmbedWindowToTop(embedInfo.id);
+					setEmbedWindowVisibility(embedInfo.id, true);
         }}
       >
         <img className="icon" src={embedInfo.iconSrc} alt={embedInfo.title} />
-      </div>
+				<span className="tooltip">{embedInfo.title}</span>
+      </button>
     </>
   );
 }
