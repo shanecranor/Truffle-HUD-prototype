@@ -4,6 +4,7 @@ export default scss`
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
 .addon-window-container {
 	position: fixed;
+	top: 0;
 }
 .addon-window {
 	box-sizing: border-box;

@@ -4,60 +4,64 @@ import { CreatorInfo, EmbedInfo } from '../types';
 import { creatorList, embedList } from '../state.js';
 import EmbedItem from './embed-item';
 import CreatorItem from './creator-item';
-import TruffleProfileItem from './truffle-profile-item';
+import TruffleButton from './truffle-button';
+import Settings from './settings-panel';
 import { useStyleSheet } from '../deps/styles';
 import styleSheet from './sidebar.scss.js';
 import { useObservable, observer } from '@legendapp/state/react';
 import truffleLogo from '../assets/truffle-logo.svg';
+import { config$ } from '../sidebar-config-state';
 
-const MOUSEOVER_DETECTOR_WIDTH: number = 8;
 
 function TruffleSidebar() {
   const currentCreator: CreatorInfo = creatorList.get()[0]; //TODO set current creator in state instead of hardcoding
   useStyleSheet(styleSheet);
-  const isOpen = useObservable<boolean>(false);
-  const isGateKept = useObservable<boolean>(true);
+  const isOpen$ = useObservable<boolean>(false);
+  const isGateKept$ = useObservable<boolean>(true);
+  const screenSide = config$.get().screenSide;
+  const activationZoneWidth = config$.get().activationZoneWidth;
+  const isTwoStep = config$.get().isTwoStep;
   return (
     <>
       <div
-        className="truffle-sidebar-mouse-leave-detector"
-        style={{ width: `calc(100% - ${MOUSEOVER_DETECTOR_WIDTH}px)` }}
+        className={`truffle-sidebar-mouse-leave-detector ${isOpen$.get() ? "is-open" : ""} config-${screenSide}`}
+        style={{ width: `calc(100% - ${activationZoneWidth}px)` }}
         onMouseLeave={(e: React.MouseEvent) => {
           //only open the sidebar if the mouse is on the left side of the screen
-          if (e.clientX <= MOUSEOVER_DETECTOR_WIDTH)
-            isOpen.set(true)
+          if (e.clientX <= activationZoneWidth)
+            isOpen$.set(true)
         }}
       />
       <div
-        className="truffle-sidebar-mouse-enter-detector"
-        style={{ width: `${MOUSEOVER_DETECTOR_WIDTH}px` }}
+        className={`truffle-sidebar-mouse-enter-detector config-${screenSide}`}
+        style={{ width: `${activationZoneWidth}px` }}
         onMouseEnter={() => {
-          isOpen.set(true)
+          isOpen$.set(true)
         }}
       />
       <div
-        className="truffle-sidebar-gatekeeper"
-        style={{ left: isOpen.get() ? '0px' : '-72px' }}
+        className={`truffle-sidebar-gatekeeper config-${screenSide} ${isTwoStep ? "enabled" : "disabled"}`}
+        style={{ [screenSide]: isOpen$.get() ? '0px' : '-72px' }}
         onMouseLeave={(e: React.MouseEvent) => {
-          if (e.clientX > MOUSEOVER_DETECTOR_WIDTH && isGateKept.get()) {
-            isOpen.set(false)
+          if (e.clientX > activationZoneWidth && isGateKept$.get()) {
+            isOpen$.set(false)
           }
         }}
       >
         <img className="truffle-logo" src={truffleLogo} alt={"truffle logo"}
-          onMouseEnter={() => { isGateKept.set(false); isOpen.set(true) }} />
+          onMouseEnter={() => { isGateKept$.set(false); isOpen$.set(true) }} />
       </div>
       <div
-        className="truffle-sidebar"
-        style={{ left: isOpen.get() && !isGateKept.get() ? '0px' : '-72px' }}
+        className={`truffle-sidebar config-${screenSide}`}
+        style={{ [screenSide]: isOpen$.get() && (!isGateKept$.get() || !isTwoStep) ? '0px' : '-72px' }}
         onMouseLeave={(e: React.MouseEvent) => {
-          if (e.clientX > MOUSEOVER_DETECTOR_WIDTH) {
-            isOpen.set(false)
-            isGateKept.set(true)
+          if (e.clientX > activationZoneWidth) {
+            isOpen$.set(false)
+            isGateKept$.set(true)
           }
         }}
       >
-        <TruffleProfileItem />
+        <TruffleButton />
         {/* display the current creator on top, even if they aren't in the user's creator list */}
         <CreatorItem creatorInfo={currentCreator} />
         {embedList.get().map((embedInfo: EmbedInfo) => {
@@ -75,6 +79,7 @@ function TruffleSidebar() {
             );
           })}
       </div>
+      <Settings /> {/* replace with modular drawer system */}
     </>
   );
 }

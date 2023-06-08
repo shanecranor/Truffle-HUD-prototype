@@ -48,3 +48,9 @@ export interface EmbedWindowState {
 	isOpen: boolean;
 	zIndex: number;
 }
+
+export interface SidebarConfig {
+	isTwoStep: boolean;
+	screenSide: "left" | "right";
+	activationZoneWidth: number;
+}

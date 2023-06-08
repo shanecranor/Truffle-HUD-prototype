@@ -2,17 +2,36 @@ import { scss } from '../deps/styles';
 
 export default scss`
 .truffle-sidebar-mouse-leave-detector{
-	position: fixed;
-	top: 0;
-	right: 0;
-	height: 100%;
-	z-index: 11;
+	pointer-events: none;
+	&.is-open {
+		pointer-events: all;
+		position: fixed;
+		top: 0;
+		&.config-right{
+			left: 0;
+		}
+		&.config-left{
+			right: 0;
+		}
+		height: 100%;
+		z-index: 11;
+	}
 }
 .truffle-sidebar-gatekeeper{
+	&.disabled{
+		display: none;
+	}
 	position: fixed;
 	top: 0;
-	left: 0;
-	transition: left 0.2s ease-in-out;
+	&.config-right{
+		right: 0;
+		transition: right 0.2s ease-in-out;
+	}
+	&.config-left{
+		left: 0;
+		transition: left 0.2s ease-in-out;
+	}
+	
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -28,15 +47,28 @@ export default scss`
 .truffle-sidebar-mouse-enter-detector{
 	position: fixed;
 	top: 0;
-	left: 0;
+	&.config-right{
+		right: 0;
+	}
+	&.config-left{
+		left: 0;
+	}
 	height: 100%;
 	z-index: 11000;
 }
 .truffle-sidebar{
 	position: fixed;
 	top: 0;
-	left: 0;
-	transition: left 0.2s ease-in-out;
+	&.config-right{
+		right: 0;
+		transition: right 0.2s ease-in-out;
+	}
+	&.config-left{
+		left: 0;
+		transition: left 0.2s ease-in-out;
+	}
+
+
 	height: 100%;
 	width: 72px;
 	background: #1f1f1f;
@@ -49,6 +81,7 @@ export default scss`
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		outline: none;
 		&.profile-item{
 			margin-top: 12px;
 			>.item-container{
@@ -85,7 +118,7 @@ export default scss`
 			// width: 200px;
 			white-space: nowrap;
 			background-color: #171717;
-			border: 0.5px solid white;
+			// border: 0x solid white;
 			color: #fff;
 			text-align: center;
 			border-radius: 6px;
