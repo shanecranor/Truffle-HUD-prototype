@@ -3283,7 +3283,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.62.1":
+"sass@npm:1.62.1":
   version: 1.62.1
   resolution: "sass@npm:1.62.1"
   dependencies:
@@ -3558,7 +3558,7 @@ __metadata:
     jscodeshift: "npm:^0.15.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    sass: "npm:^1.62.1"
+    sass: "npm:1.62.1"
     typescript: "npm:^5.0.2"
     vite: "npm:^4.3.9"
   languageName: unknown
