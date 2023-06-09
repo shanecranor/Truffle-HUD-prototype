@@ -10,7 +10,7 @@ export default function SidebarItem(
     <>
       <button
         className={`sidebar-item ${className}`}
-        onClick={() => onClick}
+        onClick={(e:React.MouseEvent) => onClick && onClick(e)} //probably a better way to pass this through but idk
       >
         <img className={`icon ${imgClassName}`} src={iconUrl} alt={altText}
         style={{
