@@ -12,7 +12,6 @@ import { useObservable, observer } from '@legendapp/state/react';
 import truffleLogo from '../assets/truffle-logo.svg';
 import { config$ } from '../sidebar-config-state';
 import React, { useEffect } from 'react';
-import { time } from 'console';
 
 function distanceToEdge(e: React.MouseEvent | MouseEvent) {
   if (config$.get().screenSide === "left")
@@ -93,7 +92,7 @@ function TruffleSidebar() {
         className={`truffle-sidebar-gatekeeper config-${screenSide} ${isTwoStep ? "enabled" : "disabled"}`}
         style={{ [screenSide]: isOpen$.get() ? '0px' : '-72px' }}
         onMouseLeave={(e: React.MouseEvent) => {
-          if (/*e.clientX > activationZoneWidth && */isGateKept$.get()) {
+          if (distanceToEdge(e) > activationZoneWidth && isGateKept$.get()) {
             isOpen$.set(false)
           }
         }}
