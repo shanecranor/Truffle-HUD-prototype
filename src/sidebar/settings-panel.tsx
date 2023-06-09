@@ -23,6 +23,14 @@ function Settings() {
 					onChange={(e) => config$.activationZoneWidth.set(Number(e.target.value))}
 					value={config$.activationZoneWidth.get()} />
 				{`${config$.activationZoneWidth.get()}px `}
+				<br></br>
+				sidebar timeout
+				<br></br>
+				<input type="range" min="0" max="10" step="0.1"
+					onChange={(e) => config$.sidebarTimeout.set(Number(e.target.value) * 1000)}
+					value={config$.sidebarTimeout.get() / 1000.0} />
+				<br></br>
+				{`${config$.sidebarTimeout.get() / 1000.0} seconds`}
 			</div>
 		</div>
 	);

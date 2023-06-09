@@ -53,4 +53,5 @@ export interface SidebarConfig {
 	isTwoStep: boolean;
 	screenSide: "left" | "right";
 	activationZoneWidth: number;
+	sidebarTimeout: number;
 }
