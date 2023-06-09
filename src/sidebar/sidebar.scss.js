@@ -36,12 +36,11 @@ export default scss`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 72px;
 	z-index: 10900;
 	>.truffle-logo{
 		margin-top: 12px;
-		width: 48px;
-		height: 48px;
+		// width: 48px;
+		// height: 48px;
 	}
 }
 .truffle-sidebar-mouse-enter-detector{
@@ -68,9 +67,7 @@ export default scss`
 		transition: left 0.2s ease-in-out;
 	}
 
-
 	height: 100%;
-	width: 72px;
 	background: #1f1f1f;
 	z-index: 11001;
 	display: flex;
@@ -82,37 +79,19 @@ export default scss`
 		flex-direction: column;
 		align-items: center;
 		outline: none;
+		background: none;
+		border: 0;
 		&.profile-item{
 			margin-top: 12px;
 			>.item-container{
-				width: 48px;
-				height: 48px;
 				background: #2f2f2f;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
-				>.icon{
-					width: 28px;
-					height: 28px;
-				}
-			}
-
-		}
-		&.creator-item{
-			>.icon{
-				width: 48px;
-				height: 48px;
 			}
 		}
-		&.embed-item{
-			background: none;
-			border: 0;
-			>.icon{
-				width: 40px;
-				height: 40px;
-			}
-		}
+			
 		>.tooltip{
 			visibility: hidden;
 			// width: 200px;

@@ -54,4 +54,15 @@ export interface SidebarConfig {
 	screenSide: "left" | "right";
 	activationZoneWidth: number;
 	sidebarTimeout: number;
+	sidebarWidth: number;
+	largeWidthRatio: number;
+	smallWidthRatio: number;
+}
+
+export type SidebarItemInfo = {
+	className: string,
+	iconUrl: string,
+	altText: string,
+	sizeRatio: number
+	imgClassName?: string,
 }

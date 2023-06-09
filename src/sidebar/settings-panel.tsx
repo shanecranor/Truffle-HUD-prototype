@@ -31,6 +31,14 @@ function Settings() {
 					value={config$.sidebarTimeout.get() / 1000.0} />
 				<br></br>
 				{`${config$.sidebarTimeout.get() / 1000.0} seconds`}
+				<br></br>
+				sidebar width
+				<br></br>
+				<input type="range" min="40" max="96" step="8"
+					onChange={(e) => config$.sidebarWidth.set(Number(e.target.value))}
+					value={config$.sidebarWidth.get()} />
+				<br></br>
+				{`${config$.sidebarWidth.get()} px`}
 			</div>
 		</div>
 	);

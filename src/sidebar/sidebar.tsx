@@ -24,38 +24,45 @@ function directionToSidebar() {
   return 1
 }
 
+
 function TruffleSidebar() {
   const currentCreator: CreatorInfo = creatorList.get()[0]; //TODO set current creator in state instead of hardcoding
   useStyleSheet(styleSheet);
   // const lastMouseEvent$ = useObservable<MouseEvent | null>(null);
-  const isMouseInWindow$ = useObservable<boolean>(false);
+  const isMouseInWindow$ = useObservable<boolean>(false); //TODO: can probably delete this without hurting anything
+  const isMouseInSidebar$ = useObservable<boolean>(false);
   const timeoutTimer$ = useObservable<number>(0);
   const isOpen$ = useObservable<boolean>(false);
   const isGateKept$ = useObservable<boolean>(true);
-  const screenSide = config$.get().screenSide;
-  const activationZoneWidth = config$.get().activationZoneWidth;
-  const isTwoStep = config$.get().isTwoStep;
+  const {screenSide, activationZoneWidth, sidebarWidth, isTwoStep} = config$.get()
+  function closeSidebar() {
+    //cancel any pending timeout before setting a new one
+    if (timeoutTimer$.get()) {
+      window.clearTimeout(timeoutTimer$.get())
+    }
+    //create a new timeout and store id in state
+    timeoutTimer$.set(
+      window.setTimeout(() => {
+        if (!isMouseInWindow$.get() || !isMouseInSidebar$.get()) {
+          console.log("closing sidebar")
+          isOpen$.set(false)
+          isGateKept$.set(true)
+        }
+        timeoutTimer$.set(0)
+      }, config$.sidebarTimeout.get())
+    )
+  }
   useEffect(() => {
     const handleMouseLeave = (e: MouseEvent) => {
       isMouseInWindow$.set(false)
+      isMouseInSidebar$.set(false)
       const inQuarter: boolean = distanceToEdge(e) < window.innerWidth / 4
       const movingTowardsSidebar: boolean = e.movementX > activationZoneWidth * directionToSidebar()
       if (inQuarter && movingTowardsSidebar) {
         isOpen$.set(true)
       }
-      //cancel any pending timeout before setting a new one
-      if (timeoutTimer$.get()) {
-        window.clearTimeout(timeoutTimer$.get())
-      }
-      //create a new timeout and store id in state
-      timeoutTimer$.set(
-        window.setTimeout(() => {
-          if (!isMouseInWindow$.get()) {
-            isOpen$.set(false)
-          }
-          timeoutTimer$.set(0)
-        }, config$.sidebarTimeout.get())
-      )
+
+      closeSidebar()
     };
     const handleMouseEnter = () => {
       isMouseInWindow$.set(true)
@@ -76,24 +83,30 @@ function TruffleSidebar() {
     <>
       <div
         className={`truffle-sidebar-mouse-leave-detector ${isOpen$.get() ? "is-open" : ""} config-${screenSide}`}
-        style={{ width: `calc(100% - ${72}px)` }} //TODO: make this 72px a CSS variable
-        onMouseEnter={() => {
-          isOpen$.set(false)
+        style={{ width: `calc(100% - ${sidebarWidth}px)` }}
+        onMouseEnter={() => { 
+          isMouseInSidebar$.set(false)
+          closeSidebar() 
         }}
       />
       <div
-        className={`truffle-sidebar-mouse-enter-detector config-${screenSide}`}
+        className={`truffle-sidebar-mouse-enter-detector config-${screenSide} ${isMouseInSidebar$.get() ? "inSidebar" : "NOTinSidebar"}`}
         style={{ width: `${activationZoneWidth}px` }}
         onMouseEnter={() => {
+          isMouseInSidebar$.set(true)
           isOpen$.set(true)
         }}
       />
       <div
         className={`truffle-sidebar-gatekeeper config-${screenSide} ${isTwoStep ? "enabled" : "disabled"}`}
-        style={{ [screenSide]: isOpen$.get() ? '0px' : '-72px' }}
+        style={{ 
+          [screenSide]: isOpen$.get() ? '0px' : `-${sidebarWidth}px`,
+          width: `${sidebarWidth}px`
+        }}
         onMouseLeave={(e: React.MouseEvent) => {
           if (distanceToEdge(e) > activationZoneWidth && isGateKept$.get()) {
-            isOpen$.set(false)
+            isMouseInSidebar$.set(false)
+            closeSidebar()
           }
         }}
       >
@@ -102,11 +115,15 @@ function TruffleSidebar() {
       </div>
       <div
         className={`truffle-sidebar config-${screenSide}`}
-        style={{ [screenSide]: isOpen$.get() && (!isGateKept$.get() || !isTwoStep) ? '0px' : '-72px' }}
+        style={{ 
+          [screenSide]: isOpen$.get() && (!isGateKept$.get() || !isTwoStep) ? '0px' : `-${sidebarWidth}px`,
+          width: `${sidebarWidth}px` 
+        }}
+        onMouseEnter={() =>{isMouseInSidebar$.set(true)}}
         onMouseLeave={(e: React.MouseEvent) => {
           if (distanceToEdge(e) > activationZoneWidth) {
-            isOpen$.set(false)
-            isGateKept$.set(true)
+            isMouseInSidebar$.set(false)
+            closeSidebar()
           }
         }}
       >

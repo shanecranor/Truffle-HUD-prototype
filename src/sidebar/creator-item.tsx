@@ -1,10 +1,13 @@
+import { config$ } from '../sidebar-config-state';
 import { CreatorInfo } from '../types'
+import SidebarItem from './sidebar-item';
 export default function CreatorItem ({ creatorInfo }: { creatorInfo: CreatorInfo }) {
-	return <div className="sidebar-item creator-item">
-		<img 
-		className="icon round"
-		src={creatorInfo.iconSrc} 
-		alt={creatorInfo.name}
-		/>
-	</div>
+	const itemInfo = {
+    className: "creator-item",
+    iconUrl: creatorInfo.iconSrc,
+    altText: creatorInfo.name,
+    sizeRatio: config$.largeWidthRatio.get(),
+		imgClassName: "round",
+  }
+	return <SidebarItem itemInfo={itemInfo}/>
 }

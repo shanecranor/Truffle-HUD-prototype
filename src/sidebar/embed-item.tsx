@@ -3,20 +3,23 @@ import {
   moveEmbedWindowToTop,
   setEmbedWindowVisibility,
 } from '../state';
+import { config$ } from '../sidebar-config-state';
+import SidebarItem from './sidebar-item';
 export default function EmbedItem({ embedInfo }: { embedInfo: EmbedInfo }) {
+  const itemInfo = {
+    className: "embed-item",
+    iconUrl: embedInfo.iconSrc,
+    altText: embedInfo.title,
+    sizeRatio: config$.smallWidthRatio.get(),
+  }
   return (
-    <>
-      <button
-        className="sidebar-item embed-item"
-        onClick={() => {
-          // move embed to the top
-					moveEmbedWindowToTop(embedInfo.id);
-					setEmbedWindowVisibility(embedInfo.id, true);
-        }}
-      >
-        <img className="icon" src={embedInfo.iconSrc} alt={embedInfo.title} />
-				<span className="tooltip">{embedInfo.title}</span>
-      </button>
-    </>
+    <SidebarItem itemInfo={itemInfo}
+    onClick={() => {
+      moveEmbedWindowToTop(embedInfo.id);
+      setEmbedWindowVisibility(embedInfo.id, true);
+    }}
+    >
+      <span className="tooltip">{embedInfo.title}</span>
+    </SidebarItem>
   );
 }
