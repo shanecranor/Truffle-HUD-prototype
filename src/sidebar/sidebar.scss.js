@@ -36,11 +36,12 @@ export default scss`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	z-index: 10900;
+	z-index: 11001;
 	>.truffle-logo{
 		margin-top: 12px;
 		// width: 48px;
 		// height: 48px;
+		z-index: 19000
 	}
 }
 .truffle-sidebar-mouse-enter-detector{
@@ -69,7 +70,7 @@ export default scss`
 
 	height: 100%;
 	background: #1f1f1f;
-	z-index: 11001;
+	z-index: 11002;
 	display: flex;
 	flex-direction: column;
 	gap: 20px 0px;

@@ -29,7 +29,6 @@ function TruffleSidebar() {
   const currentCreator: CreatorInfo = creatorList.get()[0]; //TODO set current creator in state instead of hardcoding
   useStyleSheet(styleSheet);
   // const lastMouseEvent$ = useObservable<MouseEvent | null>(null);
-  const isMouseInWindow$ = useObservable<boolean>(false); //TODO: can probably delete this without hurting anything
   const isMouseInSidebar$ = useObservable<boolean>(false);
   const timeoutTimer$ = useObservable<number>(0);
   const isOpen$ = useObservable<boolean>(false);
@@ -43,8 +42,7 @@ function TruffleSidebar() {
     //create a new timeout and store id in state
     timeoutTimer$.set(
       window.setTimeout(() => {
-        if (!isMouseInWindow$.get() || !isMouseInSidebar$.get()) {
-          console.log("closing sidebar")
+        if(!isMouseInSidebar$.get()) {
           isOpen$.set(false)
           isGateKept$.set(true)
         }
@@ -54,7 +52,6 @@ function TruffleSidebar() {
   }
   useEffect(() => {
     const handleMouseLeave = (e: MouseEvent) => {
-      isMouseInWindow$.set(false)
       isMouseInSidebar$.set(false)
       const inQuarter: boolean = distanceToEdge(e) < window.innerWidth / 4
       const movingTowardsSidebar: boolean = e.movementX > activationZoneWidth * directionToSidebar()
@@ -65,7 +62,7 @@ function TruffleSidebar() {
       closeSidebar()
     };
     const handleMouseEnter = () => {
-      isMouseInWindow$.set(true)
+      // isMouseInSidebar$.set(true)
     };
     const handleMouseMove = () => {
       // lastMouseEvent$.set(e)
