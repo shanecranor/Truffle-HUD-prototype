@@ -99,7 +99,7 @@ function TruffleSidebar() {
         className={`truffle-sidebar-gatekeeper config-${screenSide} ${isTwoStep ? "enabled" : "disabled"}`}
         style={{ 
           [screenSide]: isOpen$.get() ? '0px' : `-${sidebarWidth}px`,
-          width: `${sidebarWidth}px`,
+          width: `${sidebarWidth}px`
         }}
         onMouseLeave={(e: React.MouseEvent) => {
           if (distanceToEdge(e) > activationZoneWidth && isGateKept$.get()) {

@@ -11,7 +11,7 @@ function Settings() {
 			<div className="settings-panel">
 				<input type="checkbox"
 					onChange={(e) => config$.isTwoStep.set(e.target.checked)}
-					value={config$.isTwoStep.get() + ""} /> add secondary step to open menu
+					checked={config$.isTwoStep.get()} /> add secondary step to open menu
 				<br></br>
 				left side <input type="range" min="0" max="1"
 					onChange={(e) => config$.screenSide.set(e.target.value === "0" ? "left" : "right")}
