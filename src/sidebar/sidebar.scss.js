@@ -73,15 +73,32 @@ export default scss`
 	z-index: 11002;
 	display: flex;
 	flex-direction: column;
-	gap: 20px 0px;
+	align-items: center;
+	gap: 8px 0px;
 
-	> .sidebar-item {
+	> .separator-item{
+		height: 2px;
+		background: rgba(255, 255, 255, 0.08);
+		padding: 0;
+		// margin-top: -10px; /* Adapt 20px gap to 5px */
+		// margin-bottom: -10px;
+	}
+	>.current-creator-embed-folder {
+		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		gap: 8px;
+		padding: 8px 0px;
+		background: rgba(255, 255, 255, 0.08);
+		border-radius: 14px;
+	}
+	>.sidebar-item, .current-creator-embed-folder >.sidebar-item{ 
+		padding: 0;
 		outline: none;
 		background: none;
 		border: 0;
+		display: flex;
 		&.profile-item{
 			margin-top: 12px;
 			>.item-container{
@@ -92,20 +109,49 @@ export default scss`
 				justify-content: center;
 			}
 		}
+		&.creator-item{
 			
+			>img{
+				&.creator-is-live{
+					&.platform-youtube{ 
+						outline: 2px solid #E53333;
+					}
+					&.platform-twitch{ 
+						outline: 2px solid #6441a5;
+					}
+				}
+			}
+			&.creator-is-live{
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				&::after{
+					content: "LIVE";
+					font-family: 'Inter', sans-serif;
+					font-size: 10px;
+					padding:2px;
+					color: white;
+					border-radius: 4px;
+					margin-top: -4px;
+				}
+				&.platform-twitch::after{
+					background: #6441a5;
+				}
+				&.platform-youtube::after{
+					background: #E53333;
+				}
+			}
+		}
 		>.tooltip{
 			visibility: hidden;
-			// width: 200px;
 			white-space: nowrap;
 			background-color: #171717;
-			// border: 0x solid white;
 			color: #fff;
 			text-align: center;
 			border-radius: 6px;
 			padding: 10px;
 			position: absolute;
 			z-index: 1;
-			// top: -5px;
 			left: 110%;
 			box-shadow: 0 10px 70px rgba(0, 0, 0, 0.35);
 			&::before{

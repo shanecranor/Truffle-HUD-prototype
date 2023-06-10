@@ -12,6 +12,7 @@ import { useObservable, observer } from '@legendapp/state/react';
 import truffleLogo from '../assets/truffle-logo.svg';
 import { config$ } from '../sidebar-config-state';
 import React, { useEffect } from 'react';
+import SeparatorItem from './separator-item';
 
 function distanceToEdge(e: React.MouseEvent | MouseEvent) {
   if (config$.get().screenSide === "left")
@@ -32,7 +33,7 @@ function TruffleSidebar() {
   const timeoutTimer$ = useObservable<number>(0);
   const isOpen$ = useObservable<boolean>(false);
   const isGateKept$ = useObservable<boolean>(true);
-  const {screenSide, activationZoneWidth, sidebarWidth, isTwoStep, twoStepActivationMode, largeWidthRatio} = config$.get()
+  const {screenSide, activationZoneWidth, sidebarWidth, isTwoStep, twoStepActivationMode, largeWidthRatio, folderWidthRatio} = config$.get()
   function closeSidebar() {
     //cancel any pending timeout before setting a new one
     if (timeoutTimer$.get()) {
@@ -135,12 +136,15 @@ function TruffleSidebar() {
         }}
       >
         <TruffleButton />
+        <SeparatorItem/>
         {/* display the current creator on top, even if they aren't in the user's creator list */}
-        <CreatorItem creatorInfo={currentCreator} />
-        {embedList.get().map((embedInfo: EmbedInfo) => {
-          return <EmbedItem key={embedInfo.id} embedInfo={embedInfo} />;
-        })}
-
+        <div className="current-creator-embed-folder" style={{width: `${folderWidthRatio*sidebarWidth}px`}}>
+          <CreatorItem creatorInfo={currentCreator} />
+          {embedList.get().map((embedInfo: EmbedInfo) => {
+            return <EmbedItem key={embedInfo.id} embedInfo={embedInfo} />;
+          })}
+        </div>
+        <SeparatorItem/>
         {creatorList
           .get()
           .filter(

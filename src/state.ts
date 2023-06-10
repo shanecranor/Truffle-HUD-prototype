@@ -1,12 +1,13 @@
 import { EmbedInfo, CreatorInfo, Platform, EmbedWindowState } from "./types";
 import { observable, observe, batch } from "@legendapp/state"
-
+import pigtionaryIcon from "./assets/temporary-addon-icons/pigtionary-icon.svg";
+import pokeIcon from "./assets/temporary-addon-icons/poke-icon.svg";
 export const embedList = observable<EmbedInfo[]>(
   [
     {
       id: "A",
       iframeSrc: "https://pigtionary-embed.netlify.app/streamer.html",
-      iconSrc: "https://cdn.bio/assets/images/branding/logomark.svg",
+      iconSrc: pigtionaryIcon,
       title: "🐷 Pigtionary Addon",
       tooltipDescription: "A pictionary game for Truffle",
       embedWindow: {
@@ -32,7 +33,7 @@ export const embedList = observable<EmbedInfo[]>(
       id: "C",
       iframeSrc: "https://codepen.io/Thisisntme/embed/Qxqgvv?default-tab=html%2Cresult&theme-id=dark&editable=true",
       title: "Random Codepen",
-      iconSrc: "https://cdn.bio/assets/images/branding/logomark.svg",
+      iconSrc: pokeIcon,
       tooltipDescription: "A cool random codepen",
       embedWindow: {
 

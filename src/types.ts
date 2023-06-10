@@ -58,7 +58,8 @@ export interface SidebarConfig {
 	sidebarWidth: number;
 	largeWidthRatio: number;
 	smallWidthRatio: number;
-
+	xSmallWidthRatio: number;
+	folderWidthRatio: number;
 }
 
 export type SidebarItemInfo = {
