@@ -32,7 +32,7 @@ function TruffleSidebar() {
   const timeoutTimer$ = useObservable<number>(0);
   const isOpen$ = useObservable<boolean>(false);
   const isGateKept$ = useObservable<boolean>(true);
-  const {screenSide, activationZoneWidth, sidebarWidth, isTwoStep, largeWidthRatio} = config$.get()
+  const {screenSide, activationZoneWidth, sidebarWidth, isTwoStep, twoStepActivationMode, largeWidthRatio} = config$.get()
   function closeSidebar() {
     //cancel any pending timeout before setting a new one
     if (timeoutTimer$.get()) {
@@ -103,7 +103,6 @@ function TruffleSidebar() {
         }}
         onMouseLeave={(e: React.MouseEvent) => {
           if (distanceToEdge(e) > activationZoneWidth && isGateKept$.get()) {
-            console.log("trigered by gatekeepr")
             isMouseInSidebar$.set(false)
             closeSidebar()
           }
@@ -111,7 +110,15 @@ function TruffleSidebar() {
       >
         <img className="truffle-logo" src={truffleLogo} alt={"truffle logo"}
         style={{width: `${sidebarWidth*largeWidthRatio}px`, height: `${sidebarWidth*largeWidthRatio}px`}}
-          onMouseEnter={() => { isGateKept$.set(false); isOpen$.set(true) }} />
+          onMouseEnter={() => { 
+            if (twoStepActivationMode === "click") return
+            isGateKept$.set(false); 
+            isOpen$.set(true) }}
+          onClick={() => { 
+            if (twoStepActivationMode === "hover") return
+            isGateKept$.set(false); 
+            isOpen$.set(true) }}
+          />
       </div>
       <div
         className={`truffle-sidebar config-${screenSide}`}

@@ -3,6 +3,7 @@ import { observable } from "@legendapp/state"
 
 export const defaultConfig: SidebarConfig = {
 	isTwoStep: true,
+	twoStepActivationMode: "hover",
 	screenSide: "left",
 	activationZoneWidth: 14,
 	sidebarTimeout: 1000,

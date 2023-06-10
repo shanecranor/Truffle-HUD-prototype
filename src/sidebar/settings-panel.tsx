@@ -6,39 +6,44 @@ import styleSheet from './settings-panel.scss.js';
 function Settings() {
 	useStyleSheet(styleSheet);
 	const isEnabled = isSettingsOpen$.get();
+	const { isTwoStep, twoStepActivationMode, screenSide, activationZoneWidth, sidebarTimeout, sidebarWidth } = config$.get();
 	return (
 		<div className={`sidebar-drawer settings-drawer ${isEnabled ? "enabled" : "disabled"}`}>
 			<div className="settings-panel">
 				<input type="checkbox"
 					onChange={(e) => config$.isTwoStep.set(e.target.checked)}
-					checked={config$.isTwoStep.get()} /> add secondary step to open menu
+					checked={isTwoStep} /> add secondary step to open menu
+				<br></br>
+				<input type="checkbox"
+					onChange={(e) => config$.twoStepActivationMode.set(e.target.checked ? "click" : "hover")}
+					checked={twoStepActivationMode === "click"} /> secondary step is a click instead of hover
 				<br></br>
 				left side <input type="range" min="0" max="1"
 					onChange={(e) => config$.screenSide.set(e.target.value === "0" ? "left" : "right")}
-					value={config$.screenSide.get() === "left" ? 0 : 1} /> right side
+					value={screenSide === "left" ? 0 : 1} /> right side
 				<br></br>
 				activation zone width:
 				<br></br>
 				<input type="range" min="1" max="140"
 					onChange={(e) => config$.activationZoneWidth.set(Number(e.target.value))}
-					value={config$.activationZoneWidth.get()} />
-				{`${config$.activationZoneWidth.get()}px `}
+					value={activationZoneWidth} />
+				{`${activationZoneWidth}px `}
 				<br></br>
 				sidebar timeout
 				<br></br>
 				<input type="range" min="0" max="10" step="0.1"
 					onChange={(e) => config$.sidebarTimeout.set(Number(e.target.value) * 1000)}
-					value={config$.sidebarTimeout.get() / 1000.0} />
+					value={sidebarTimeout/ 1000.0} />
 				<br></br>
-				{`${config$.sidebarTimeout.get() / 1000.0} seconds`}
+				{`${sidebarTimeout / 1000.0} seconds`}
 				<br></br>
 				sidebar width
 				<br></br>
 				<input type="range" min="40" max="96" step="8"
 					onChange={(e) => config$.sidebarWidth.set(Number(e.target.value))}
-					value={config$.sidebarWidth.get()} />
+					value={sidebarWidth} />
 				<br></br>
-				{`${config$.sidebarWidth.get()} px`}
+				{`${sidebarWidth} px`}
 			</div>
 		</div>
 	);

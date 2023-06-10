@@ -51,12 +51,14 @@ export interface EmbedWindowState {
 
 export interface SidebarConfig {
 	isTwoStep: boolean;
+	twoStepActivationMode: "hover" | "click";
 	screenSide: "left" | "right";
 	activationZoneWidth: number;
 	sidebarTimeout: number;
 	sidebarWidth: number;
 	largeWidthRatio: number;
 	smallWidthRatio: number;
+
 }
 
 export type SidebarItemInfo = {
