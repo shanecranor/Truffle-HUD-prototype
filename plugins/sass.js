@@ -25,7 +25,7 @@ export function viteSassToCss() {
 }
 
 function isSassTag(node) {
-  return node.tag.name.match(/^s(a|c)ss$/);
+  return node.tag.name.match(/^s?(a|c)ss$/);
 }
 
 export function transformSassLiteral(js) {
