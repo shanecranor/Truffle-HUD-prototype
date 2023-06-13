@@ -1,23 +1,19 @@
 import EmbedWindow from './embed-window';
 import { useStyleSheet } from '../deps/styles';
 import styleSheet from './window-system.scss.js';
-import {
-  embedList,
-  embedWindowStates,
-  moveEmbedWindowToTop,
-} from '../state';
+import { embedList$, embedWindowStates$, moveEmbedWindowToTop } from '../state';
 import { observer, useComputed } from '@legendapp/state/react';
 
 function WindowManager() {
   useStyleSheet(styleSheet);
 
-  const numEmbeds$ = useComputed(() => embedList.get().length);
+  const numEmbeds$ = useComputed(() => embedList$.get().length);
 
   return (
     <>
-      {embedList.map((embed$) => {
+      {embedList$.map((embed$) => {
         const embed = embed$.peek();
-        const windowState$ = embedWindowStates[embed.id];
+        const windowState$ = embedWindowStates$[embed.id];
 
         return (
           <div

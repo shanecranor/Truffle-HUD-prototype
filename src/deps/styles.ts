@@ -1,5 +1,7 @@
-// export { default as scss } from "https://tfl.dev/@truffle/utils@~0.0.3/css/css.ts";
-export function scss(strings: string[], ...values: unknown[]) {
+// NOTE: prettier only works with css`` and not scss``
+// so use css`` for now
+// export { default as css } from "https://tfl.dev/@truffle/utils@~0.0.3/css/css.ts";
+export function css(strings: TemplateStringsArray, ...values: unknown[]) {
   let cssString = '';
   strings.forEach((str, i) => {
     const value = values[i];
