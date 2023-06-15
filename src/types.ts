@@ -51,17 +51,24 @@ export interface EmbedWindowState {
 }
 
 export interface SidebarConfig {
-  isTwoStep: boolean;
-  twoStepActivationMode: 'hover' | 'click';
-  screenSide: 'left' | 'right';
-  activationZoneWidth: number;
-  primaryColor: string;
-  secondaryColor: string;
-  secondaryOpacity: number;
-  sidebarTimeout: number;
   sidebarWidth: number;
-  largeWidthRatio: number;
-  smallWidthRatio: number;
-  xSmallWidthRatio: number;
-  folderWidthRatio: number;
+  activationSettings: {
+    isTwoStep: boolean;
+    twoStepMode: 'hover' | 'click';
+    screenSide: 'left' | 'right';
+    activationZoneWidth: number;
+    sidebarTimeout: number;
+  };
+  colors: {
+    primaryColor: string;
+    secondaryColor: string;
+    secondaryOpacity: number;
+  };
+  sizeRatios: {
+    large: number;
+    small: number;
+    xSmall: number;
+    xxSmall: number;
+    folderWidth: number;
+  };
 }

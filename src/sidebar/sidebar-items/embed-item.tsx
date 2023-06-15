@@ -15,7 +15,7 @@ export default function EmbedItem({ embedInfo }: { embedInfo: EmbedInfo }) {
     imageProps: {
       iconUrl: embedInfo.iconSrc,
       altText: embedInfo.title,
-      sizeRatio: config$.smallWidthRatio.get(),
+      sizeRatio: config$.sizeRatios.small.get(),
     },
   };
   return (

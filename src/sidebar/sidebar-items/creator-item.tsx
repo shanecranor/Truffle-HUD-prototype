@@ -23,7 +23,7 @@ export default function CreatorItem({
     imageProps: {
       iconUrl: iconSrc,
       altText: name,
-      sizeRatio: config$.largeWidthRatio.get(),
+      sizeRatio: config$.sizeRatios.large.get(),
       imgClassName: `round ${
         creatorInfo.isLive ? 'creator-is-live' : ''
       } platform-${platform}`,

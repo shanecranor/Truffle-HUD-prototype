@@ -124,7 +124,7 @@ export const creatorList$ = observable<CreatorInfo[]>([
     id: '3',
     name: 'Pointcrow',
     iconSrc:
-      'https://yt3.googleusercontent.com/5_U6jez7mSDtw4Rn9rEQGBxLvQu0_gHgmOuRJUqZ2bRqdnzP1KccEcUk2MS9OAZzWDUh7fDF=s176-c-k-c0x00ffffff-no-rj',
+      'https://upload.wikimedia.org/wikipedia/en/2/26/PointCrow_icon.webp',
     isLive: false,
     platform: Platform.youtube,
     order: 2,

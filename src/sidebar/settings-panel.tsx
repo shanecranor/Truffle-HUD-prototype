@@ -5,17 +5,17 @@ import styleSheet from './settings-panel.scss.js';
 function Settings() {
   useStyleSheet(styleSheet);
   const isEnabled = true;
+  const settings = config$.get();
+  const sidebarWidth = settings.sidebarWidth;
   const {
     isTwoStep,
-    twoStepActivationMode,
+    twoStepMode,
     screenSide,
     activationZoneWidth,
     sidebarTimeout,
-    sidebarWidth,
-    primaryColor,
-    secondaryColor,
-    secondaryOpacity,
-  } = config$.get();
+  } = settings.activationSettings;
+  const { primaryColor, secondaryColor, secondaryOpacity } = settings.colors;
+
   return (
     <div
       className={`sidebar-drawer settings-drawer ${
@@ -25,7 +25,9 @@ function Settings() {
       <div className="settings-panel">
         <input
           type="checkbox"
-          onChange={(e) => config$.isTwoStep.set(e.target.checked)}
+          onChange={(e) =>
+            config$.activationSettings.isTwoStep.set(e.target.checked)
+          }
           checked={isTwoStep}
         />{' '}
         add secondary step to open menu
@@ -33,11 +35,11 @@ function Settings() {
         <input
           type="checkbox"
           onChange={(e) =>
-            config$.twoStepActivationMode.set(
+            config$.activationSettings.twoStepMode.set(
               e.target.checked ? 'click' : 'hover'
             )
           }
-          checked={twoStepActivationMode === 'click'}
+          checked={twoStepMode === 'click'}
         />{' '}
         secondary step is a click instead of hover
         <br></br>
@@ -47,7 +49,9 @@ function Settings() {
           min="0"
           max="1"
           onChange={(e) =>
-            config$.screenSide.set(e.target.value === '0' ? 'left' : 'right')
+            config$.activationSettings.screenSide.set(
+              e.target.value === '0' ? 'left' : 'right'
+            )
           }
           value={screenSide === 'left' ? 0 : 1}
         />{' '}
@@ -60,7 +64,9 @@ function Settings() {
           min="1"
           max="140"
           onChange={(e) =>
-            config$.activationZoneWidth.set(Number(e.target.value))
+            config$.activationSettings.activationZoneWidth.set(
+              Number(e.target.value)
+            )
           }
           value={activationZoneWidth}
         />
@@ -74,7 +80,9 @@ function Settings() {
           max="10"
           step="0.1"
           onChange={(e) =>
-            config$.sidebarTimeout.set(Number(e.target.value) * 1000)
+            config$.activationSettings.sidebarTimeout.set(
+              Number(e.target.value) * 1000
+            )
           }
           value={sidebarTimeout / 1000.0}
         />
@@ -99,7 +107,7 @@ function Settings() {
         <input
           type="color"
           value={primaryColor}
-          onChange={(e) => config$.primaryColor.set(e.target.value)}
+          onChange={(e) => config$.colors.primaryColor.set(e.target.value)}
         />
         <br />
         Folder / Divider Color
@@ -107,7 +115,7 @@ function Settings() {
         <input
           type="color"
           value={secondaryColor}
-          onChange={(e) => config$.secondaryColor.set(e.target.value)}
+          onChange={(e) => config$.colors.secondaryColor.set(e.target.value)}
         />
         <br />
         <input
@@ -115,7 +123,9 @@ function Settings() {
           min="0"
           max="1"
           step="0.01"
-          onChange={(e) => config$.secondaryOpacity.set(Number(e.target.value))}
+          onChange={(e) =>
+            config$.colors.secondaryOpacity.set(Number(e.target.value))
+          }
           value={secondaryOpacity}
         />
         <br />

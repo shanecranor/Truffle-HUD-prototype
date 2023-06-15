@@ -15,11 +15,11 @@ import React, { useEffect } from 'react';
 import SeparatorItem from './sidebar-items/separator-item';
 
 function distanceToEdge(e: React.MouseEvent | MouseEvent) {
-  if (config$.get().screenSide === 'left') return e.clientX;
+  if (config$.activationSettings.screenSide.peek() === 'left') return e.clientX;
   return window.innerWidth - e.clientX;
 }
 function directionToSidebar() {
-  if (config$.get().screenSide === 'left') return -1;
+  if (config$.activationSettings.screenSide.peek() === 'left') return -1;
   return 1;
 }
 
@@ -31,18 +31,13 @@ function TruffleSidebar() {
   const timeoutTimer$ = useObservable<number>(0);
   const isOpen$ = useObservable<boolean>(false);
   const isGateKept$ = useObservable<boolean>(true);
-  const {
-    screenSide,
-    activationZoneWidth,
-    sidebarWidth,
-    isTwoStep,
-    twoStepActivationMode,
-    largeWidthRatio,
-    folderWidthRatio,
-    primaryColor,
-    secondaryColor,
-    secondaryOpacity,
-  } = config$.get();
+  const sidebarWidth = config$.sidebarWidth.get();
+  const { screenSide, activationZoneWidth, isTwoStep, twoStepMode } =
+    config$.activationSettings.get();
+  const { large: largeRatio, folderWidth: folderWidthRatio } =
+    config$.sizeRatios.get();
+  const { primaryColor, secondaryColor, secondaryOpacity } =
+    config$.colors.get();
 
   const secondaryColorString = `${secondaryColor}${Math.round(
     secondaryOpacity * 255
@@ -55,12 +50,12 @@ function TruffleSidebar() {
     //create a new timeout and store id in state
     timeoutTimer$.set(
       window.setTimeout(() => {
-        if (!isMouseInSidebar$.get()) {
+        if (!isMouseInSidebar$.peek()) {
           isOpen$.set(false);
           isGateKept$.set(true);
         }
         timeoutTimer$.set(0);
-      }, config$.sidebarTimeout.get())
+      }, config$.activationSettings.sidebarTimeout.peek())
     );
   }
   useEffect(() => {
@@ -102,7 +97,7 @@ function TruffleSidebar() {
     <>
       <div
         className={`truffle-sidebar-mouse-leave-detector ${
-          isOpen$.get() ? 'is-open' : ''
+          isOpen$.get() && isMouseInSidebar$.get() ? 'is-open' : ''
         } config-${screenSide}`}
         style={{ width: `calc(100% - ${sidebarWidth}px)` }}
         onMouseEnter={() => {
@@ -140,16 +135,16 @@ function TruffleSidebar() {
           src={truffleLogo}
           alt={'truffle logo'}
           style={{
-            width: `${sidebarWidth * largeWidthRatio}px`,
-            height: `${sidebarWidth * largeWidthRatio}px`,
+            width: `${sidebarWidth * largeRatio}px`,
+            height: `${sidebarWidth * largeRatio}px`,
           }}
           onMouseEnter={() => {
-            if (twoStepActivationMode === 'click') return;
+            if (twoStepMode === 'click') return;
             isGateKept$.set(false);
             isOpen$.set(true);
           }}
           onClick={() => {
-            if (twoStepActivationMode === 'hover') return;
+            if (twoStepMode === 'hover') return;
             isGateKept$.set(false);
             isOpen$.set(true);
           }}
